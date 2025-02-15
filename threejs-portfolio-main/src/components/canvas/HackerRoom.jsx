@@ -42,7 +42,7 @@ const Computers = ({ isMobile }) => {
         object={scene}
         scale={isMobile ? 0.7 : 1}
         position={isMobile ? [0, -3, -2.2] : [1.25, -3.25, -1.5]}
-        rotation={[-0.01, -1.6, -0.2]}
+        rotation={[-0.01, -1.57, -0.2]}
       />
     </group>
   );

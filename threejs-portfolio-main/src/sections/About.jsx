@@ -75,10 +75,12 @@ const About = () => {
                   onPointerOut={() => setAnimationName('idle')}
               >
                 <p className="grid-subtext text-center">Contact me</p>
-                <div className="copy-container" onClick={handleCopy}>
-                  <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
-                  <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">nishantchopra2020@gmail.com</p>
-                </div>
+                  <div className="copy-container" onClick={handleCopy}>
+                    <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
+                    <p className="email-text text-center">
+                      nishantchopra2020@gmail.com
+                    </p>
+                  </div>
               </div>
           </div>
         </div>
