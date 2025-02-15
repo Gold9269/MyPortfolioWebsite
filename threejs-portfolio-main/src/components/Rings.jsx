@@ -36,14 +36,13 @@ const Rings = ({ position }) => {
       );
   }, [position]);
 
-  // Handle hover effect
   const handleHover = () => {
     setHovered(true);
-    timelineRef.current.pause(); // Pause animation on hover
+    timelineRef.current.pause();
 
     gsap.delayedCall(1, () => {
       setHovered(false);
-      timelineRef.current.resume(); // Resume after 3 seconds
+      timelineRef.current.resume();
     });
   };
 

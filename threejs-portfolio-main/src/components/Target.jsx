@@ -46,12 +46,10 @@ const Target = (props) => {
       {...props} 
       rotation={[0, Math.PI / 5, 0]} 
       scale={[1.5, 1.5, 1.5]} 
-      onPointerEnter={handleHover}  // ✅ Now using handleHover
+      onPointerEnter={handleHover} 
     >
-      {/* Soft Local Light to Reduce Overexposure */}
       <pointLight intensity={0.5} position={[0, 2, 0]} />
 
-      {/* Render 3D Model */}
       <primitive object={scene} />
     </group>
   );

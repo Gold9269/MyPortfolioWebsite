@@ -64,11 +64,11 @@ const Contact = () => {
       {alert.show && <Alert {...alert} />}
 
       <Tilt
+        tiltEnable={false}
         glareEnable={true}
         glareMaxOpacity={0.3}
         glareColor="#5fede6"
         glarePosition="all"
-        tiltReverse={true}
         scale={.9}
         style={{ cursor: 'pointer' }}
         className="relative min-h-screen flex items-center justify-center flex-col"

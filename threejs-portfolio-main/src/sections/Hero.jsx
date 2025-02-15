@@ -16,7 +16,6 @@ import { TypeAnimation } from "react-type-animation";
 import HackerRoom from '../components/canvas/HackerRoom.jsx';
 
 const Hero = () => {
-  // Use media queries to determine screen size
   const isSmall = useMediaQuery({ maxWidth: 440 });
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });

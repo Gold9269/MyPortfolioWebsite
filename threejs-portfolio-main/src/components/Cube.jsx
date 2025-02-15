@@ -17,11 +17,10 @@ const Cube = ({ ...props }) => {
 
   useGSAP(() => {
     if (!timelineRef.current) {
-      // Create a timeline for rotation
       timelineRef.current = gsap
         .timeline({ repeat: -1, repeatDelay: 0.5 })
         .to(cubeRef.current.rotation, {
-          y: `+=${Math.PI * 2}`, // Full rotation
+          y: `+=${Math.PI * 2}`,
           x: `-=${Math.PI * 2}`,
           duration: 2.5,
           stagger: { each: 0.15 },
@@ -32,11 +31,11 @@ const Cube = ({ ...props }) => {
   const handleHover = () => {
     if (!hovered) {
       setHovered(true);
-      timelineRef.current.pause(); // Pause rotation on hover
+      timelineRef.current.pause();
 
       gsap.delayedCall(1, () => {
         setHovered(false);
-        timelineRef.current.resume(); // Resume after 3 seconds
+        timelineRef.current.resume();
       });
     }
   };
@@ -50,8 +49,8 @@ const Cube = ({ ...props }) => {
           receiveShadow
           geometry={nodes.Cube.geometry}
           material={nodes.Cube.material}
-          onPointerEnter={handleHover} // Hover starts the pause
-          onPointerLeave={() => setHovered(false)} // Reset hover state
+          onPointerEnter={handleHover}
+          onPointerLeave={() => setHovered(false)}
         >
           <meshMatcapMaterial matcap={texture} toneMapped={false} />
         </mesh>

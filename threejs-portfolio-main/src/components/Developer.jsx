@@ -6,16 +6,12 @@ import { SkeletonUtils } from 'three-stdlib';
 const Developer = ({ animationName = 'idle', ...props }) => {
   const group = useRef();
 
-  // Load the GLTF model
   const { scene } = useGLTF('/models/animations/Nishant_Avatar.glb');
 
-  // Ensure the model is properly cloned
   const clone = useMemo(() => (scene ? SkeletonUtils.clone(scene) : null), [scene]);
 
-  // Extract nodes and materials safely
   const { nodes, materials } = useGraph(clone || new THREE.Group());
 
-  // Load animations with safety checks
   const loadAnimation = (path, name) => {
     const { animations } = useFBX(path);
     if (animations.length > 0) animations[0].name = name;
@@ -27,7 +23,6 @@ const Developer = ({ animationName = 'idle', ...props }) => {
   const clappingAnimation = loadAnimation('/models/animations/clapping.fbx', 'clapping');
   const thumbsAnimation = loadAnimation('/models/animations/victory.fbx', 'victory');
 
-  // Validate animations before using them
   const animations = [idleAnimation, saluteAnimation, clappingAnimation, thumbsAnimation].filter(Boolean);
   const { actions } = useAnimations(animations, group);
 
@@ -38,7 +33,7 @@ const Developer = ({ animationName = 'idle', ...props }) => {
     }
   }, [animationName, actions]);
 
-  if (!nodes || !materials) return null; // Avoid rendering if nodes are undefined
+  if (!nodes || !materials) return null;
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -46,7 +41,7 @@ const Developer = ({ animationName = 'idle', ...props }) => {
       {Object.entries(nodes).map(([key, node]) =>
         node.isSkinnedMesh ? (
           <skinnedMesh
-            key={key} // Ensure each child has a unique key
+            key={key} 
             name={key}
             geometry={node.geometry}
             material={materials[node.material?.name]}

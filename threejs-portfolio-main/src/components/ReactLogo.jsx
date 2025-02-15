@@ -7,7 +7,6 @@ const ReactLogo = (props) => {
   const logoRef = useRef();
   const [hovered, setHovered] = useState(false);
 
-  // Hover effect - scale up when hovered
   useEffect(() => {
     if (hovered) {
       gsap.to(logoRef.current.scale, { x: 0.35, y: 0.35, z: 0.35, duration: 0.3 });
@@ -16,10 +15,9 @@ const ReactLogo = (props) => {
     }
   }, [hovered]);
 
-  // Continuous rotation
   useEffect(() => {
     gsap.to(logoRef.current.rotation, {
-      y: Math.PI * 2, // Full rotation
+      y: Math.PI * 2,
       duration: 6,
       repeat: -1,
       ease: 'linear',
