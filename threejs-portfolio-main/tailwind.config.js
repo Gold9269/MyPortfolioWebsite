@@ -26,6 +26,35 @@ export default {
       backgroundImage: {
         terminal: "url('/assets/terminal.png')",
       },
+      keyframes: {
+        ring: {
+          '0%': { transform: 'rotate(135deg)', strokeDashoffset: '-122.52' },
+          '15%': { transform: 'rotate(90deg)', strokeDashoffset: '-122.52' },
+          '35%': { transform: 'rotate(297.5deg)', strokeDashoffset: '-65.34' },
+          '55%': { transform: 'rotate(505deg)', strokeDashoffset: '-122.52' },
+          '70%': { transform: 'rotate(490deg)', strokeDashoffset: '-122.52' },
+          '85%, 100%': { transform: 'rotate(497.5deg)', strokeDashoffset: '-122.52' },
+        },
+        ball1: {
+          '0%': { transform: 'rotate(14deg)' },
+          '20%': { transform: 'rotate(-7deg)' },
+          '60%': { transform: 'rotate(399deg)' },
+          '75%': { transform: 'rotate(361deg)' },
+          '90%, 100%': { transform: 'rotate(374deg)' },
+        },
+        ball2: {
+          '0%': { transform: 'rotate(-21deg)' },
+          '25%': { transform: 'rotate(-47deg)' },
+          '60%': { transform: 'rotate(364deg)' },
+          '75%': { transform: 'rotate(326deg)' },
+          '90%, 100%': { transform: 'rotate(339deg)' },
+        },
+      },
+      animation: {
+        ring: 'ring 2s ease-in-out infinite',
+        ball1: 'ball1 2s ease-in-out infinite',
+        ball2: 'ball2 2s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

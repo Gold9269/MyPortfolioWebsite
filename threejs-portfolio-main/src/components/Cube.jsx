@@ -9,27 +9,37 @@ import { Float, useGLTF, useTexture } from '@react-three/drei';
 
 const Cube = ({ ...props }) => {
   const { nodes } = useGLTF('models/cube.glb');
-
   const texture = useTexture('textures/cube.png');
 
   const cubeRef = useRef();
   const [hovered, setHovered] = useState(false);
+  const timelineRef = useRef();
 
   useGSAP(() => {
-    gsap
-      .timeline({
-        repeat: -1,
-        repeatDelay: 0.5,
-      })
-      .to(cubeRef.current.rotation, {
-        y: hovered ? '+=2' : `+=${Math.PI * 2}`,
-        x: hovered ? '+=2' : `-=${Math.PI * 2}`,
-        duration: 2.5,
-        stagger: {
-          each: 0.15,
-        },
+    if (!timelineRef.current) {
+      // Create a timeline for rotation
+      timelineRef.current = gsap
+        .timeline({ repeat: -1, repeatDelay: 0.5 })
+        .to(cubeRef.current.rotation, {
+          y: `+=${Math.PI * 2}`, // Full rotation
+          x: `-=${Math.PI * 2}`,
+          duration: 2.5,
+          stagger: { each: 0.15 },
+        });
+    }
+  }, []);
+
+  const handleHover = () => {
+    if (!hovered) {
+      setHovered(true);
+      timelineRef.current.pause(); // Pause rotation on hover
+
+      gsap.delayedCall(1, () => {
+        setHovered(false);
+        timelineRef.current.resume(); // Resume after 3 seconds
       });
-  });
+    }
+  };
 
   return (
     <Float floatIntensity={2}>
@@ -40,7 +50,9 @@ const Cube = ({ ...props }) => {
           receiveShadow
           geometry={nodes.Cube.geometry}
           material={nodes.Cube.material}
-          onPointerEnter={() => setHovered(true)}>
+          onPointerEnter={handleHover} // Hover starts the pause
+          onPointerLeave={() => setHovered(false)} // Reset hover state
+        >
           <meshMatcapMaterial matcap={texture} toneMapped={false} />
         </mesh>
       </group>

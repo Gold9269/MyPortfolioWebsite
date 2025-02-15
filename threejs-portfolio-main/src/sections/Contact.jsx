@@ -1,5 +1,6 @@
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
+import Tilt from 'react-parallax-tilt';
 
 import useAlert from '../hooks/useAlert.js';
 import Alert from '../components/Alert.jsx';
@@ -9,7 +10,6 @@ const Contact = () => {
 
   const { alert, showAlert, hideAlert } = useAlert();
   const [loading, setLoading] = useState(false);
-
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -26,9 +26,9 @@ const Contact = () => {
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         {
           from_name: form.name,
-          to_name: 'JavaScript Mastery',
+          to_name: 'Nishant Chopra',
           from_email: form.email,
-          to_email: 'sujata@jsmastery.pro',
+          to_email: import.meta.env.REACT_APP_EMAILJS_RECEIVERID,
           message: form.message,
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
@@ -44,17 +44,12 @@ const Contact = () => {
 
           setTimeout(() => {
             hideAlert(false);
-            setForm({
-              name: '',
-              email: '',
-              message: '',
-            });
-          }, [3000]);
+            setForm({ name: '', email: '', message: '' });
+          }, 3000);
         },
         (error) => {
           setLoading(false);
           console.error(error);
-
           showAlert({
             show: true,
             text: "I didn't receive your message 😢",
@@ -68,14 +63,27 @@ const Contact = () => {
     <section className="c-space my-20" id="contact">
       {alert.show && <Alert {...alert} />}
 
-      <div className="relative min-h-screen flex items-center justify-center flex-col">
-        <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
+      <Tilt
+        glareEnable={true}
+        glareMaxOpacity={0.3}
+        glareColor="#5fede6"
+        glarePosition="all"
+        tiltReverse={true}
+        scale={.9}
+        style={{ cursor: 'pointer' }}
+        className="relative min-h-screen flex items-center justify-center flex-col"
+      >
+        <img
+          src="/assets/terminal.png"
+          alt="terminal-bg"
+          className="absolute inset-0 min-h-screen object-cover"
+        />
 
-        <div className="contact-container">
+        <div className="contact-container relative z-10 p-6 bg-black bg-opacity-75 rounded-lg">
           <h3 className="head-text">Let's talk</h3>
           <p className="text-lg text-white-600 mt-3">
-            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to
-            life, I’m here to help.
+            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to life,
+            I’m here to help.
           </p>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
@@ -120,12 +128,11 @@ const Contact = () => {
 
             <button className="field-btn" type="submit" disabled={loading}>
               {loading ? 'Sending...' : 'Send Message'}
-
               <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
             </button>
           </form>
         </div>
-      </div>
+      </Tilt>
     </section>
   );
 };

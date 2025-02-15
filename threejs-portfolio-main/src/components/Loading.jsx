@@ -1,4 +1,5 @@
 import { Html, useProgress } from '@react-three/drei';
+import LoadingSpinner from './LoadingSpinner';
 
 const CanvasLoader = () => {
   const { progress } = useProgress();
@@ -20,7 +21,7 @@ const CanvasLoader = () => {
           fontWeight: 800,
           marginTop: 40,
         }}>
-        {progress !== 0 ? `${progress.toFixed(2)}%` : 'Loading...'}
+        {progress !== 0 ? `${progress.toFixed(2)}%` : <LoadingSpinner/>}
       </p>
     </Html>
   );
