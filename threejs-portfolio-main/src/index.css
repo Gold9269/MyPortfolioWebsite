@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide default cursor on all elements */
+* {
+  cursor: none !important;
+}
+
+/* Removed interactive element cursor override */
+/* a, button, input, textarea {
+  cursor: pointer !important;
+} */
+
 :root {
   /* Light mode variables - Updated with softer colors */
   --background-primary: #f8f9fa;  /* Softer white background */
