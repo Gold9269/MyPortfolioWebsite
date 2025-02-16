@@ -62,7 +62,7 @@ const Hero = () => {
                 <Rings position={sizes.ringPosition} />
                 <Cube position={sizes.cubePosition} />
                 </group>):null
-              ) :null}
+              ) : null}
 
             <ambientLight intensity={1} />
             <directionalLight position={[10, 10, 10]} intensity={1.35} />
