@@ -4,19 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type="text"],
-textarea {
-  cursor: text; /* Ensures the I-beam cursor is shown */
-}
-/* Hide default cursor on all elements */
-* {
-  cursor: none !important;
+@media (min-width: 768px) {
+  * {
+    cursor: none !important; /* Hide the cursor only on larger screens */
+  }
 }
 
-/* Removed interactive element cursor override */
-/* a, button, input, textarea {
-  cursor: pointer !important;
-} */
+input[type="text"],
+textarea {
+  cursor: text; /* Ensure the text cursor is visible in input fields */
+}
+
 
 :root {
   /* Light mode variables - Updated with softer colors */

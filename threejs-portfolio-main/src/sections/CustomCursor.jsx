@@ -6,16 +6,20 @@ const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [visible, setVisible] = useState(true);
   const [size, setSize] = useState(window.innerWidth < 768 ? 24 : 32);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     let animationFrame;
 
     const updateSize = () => {
-      setSize(window.innerWidth < 768 ? 24 : 32);
+      const mobileCheck = window.innerWidth < 768;
+      setSize(mobileCheck ? 24 : 32);
+      setIsMobile(mobileCheck);
     };
 
     const moveCursor = (e) => {
-      // If the mouse is over the chatbot icon or chatbot window, hide the custom cursor.
+      if (isMobile) return; // Disable cursor on mobile
+
       if (
         e.target.closest("#chatbot-icon") ||
         e.target.closest("#chatbot-window")
@@ -30,24 +34,19 @@ const CustomCursor = () => {
       });
     };
 
-    const hideCursor = () => setVisible(false);
-    const showCursor = () => setVisible(true);
-
     window.addEventListener("resize", updateSize);
     document.addEventListener("mousemove", moveCursor);
-    document.addEventListener("mouseleave", hideCursor);
-    document.addEventListener("mouseenter", showCursor);
+    document.addEventListener("mouseleave", () => setVisible(false));
+    document.addEventListener("mouseenter", () => setVisible(true));
 
     updateSize();
 
     return () => {
       window.removeEventListener("resize", updateSize);
       document.removeEventListener("mousemove", moveCursor);
-      document.removeEventListener("mouseleave", hideCursor);
-      document.removeEventListener("mouseenter", showCursor);
       cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const handleMouseDown = () => {
@@ -58,6 +57,8 @@ const CustomCursor = () => {
     window.addEventListener("mousedown", handleMouseDown);
     return () => window.removeEventListener("mousedown", handleMouseDown);
   }, []);
+
+  if (isMobile) return null; // **Disable custom cursor for mobile**
 
   return (
     <motion.div
@@ -84,7 +85,6 @@ const CustomCursor = () => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Cursor Head Only */}
         <polygon
           points="2,2 2,40 12,30 27,35"
           fill="url(#gradient)"
