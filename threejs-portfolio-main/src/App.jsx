@@ -7,12 +7,12 @@ import Clients from './sections/Clients.jsx';
 import Projects from './sections/Projects.jsx';
 import WorkExperience from './sections/Experience.jsx';
 import Tech from './components/Tech.jsx';
-import Cursor from './sections/cursor.jsx'
+import CustomCursor from './sections/CustomCursor.jsx';
 
 const App = () => {
   return (
     <main className="max-w-7xl mx-auto relative">
-      <Cursor/>
+      <CustomCursor/>
       <Navbar />
       <Hero />
       <About />

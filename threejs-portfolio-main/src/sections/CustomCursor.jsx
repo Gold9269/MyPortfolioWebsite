@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const Cursor = () => {
+const CustomCursor = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isClicking, setIsClicking] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -103,4 +103,4 @@ const Cursor = () => {
   );
 };
 
-export default Cursor;
+export default CustomCursor;
