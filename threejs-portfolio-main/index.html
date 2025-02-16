@@ -9,8 +9,49 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Chatbase Chatbot Embed Code -->
     <script>
-      (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="KVEpkwweK4cn27j6hPD1S";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+      (function() {
+        if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+          window.chatbase = (...args) => {
+            if (!window.chatbase.q) {
+              window.chatbase.q = [];
+            }
+            window.chatbase.q.push(args);
+          };
+          window.chatbase = new Proxy(window.chatbase, {
+            get(target, prop) {
+              if (prop === "q") {
+                return target.q;
+              }
+              return (...args) => target(prop, ...args);
+            },
+          });
+        }
+        const onLoad = function() {
+          const script = document.createElement("script");
+          script.src = "https://www.chatbase.co/embed.min.js";
+          script.id = "KVEpkwweK4cn27j6hPD1S"; // Replace with your actual Chatbase ID
+          script.domain = "www.chatbase.co";
+          script.onload = () => {
+            // Initialize the chatbot after the script loads
+            window.chatbase("init", {
+              chatbotId: "KVEpkwweK4cn27j6hPD1S", // Replace with your actual Chatbase ID
+              container: "#chatbase-chatbot-container", // Ensure this matches the container ID
+            });
+          };
+          document.body.appendChild(script);
+        };
+        if (document.readyState === "complete") {
+          onLoad();
+        } else {
+          window.addEventListener("load", onLoad);
+        }
+      })();
     </script>
+  
+    <!-- Chatbot Container -->
+    <div id="chatbase-chatbot-container"></div>
+
   </body>
 </html>

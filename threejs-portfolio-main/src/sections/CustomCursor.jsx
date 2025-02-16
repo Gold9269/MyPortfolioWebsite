@@ -15,10 +15,18 @@ const CustomCursor = () => {
     };
 
     const moveCursor = (e) => {
+      // If the mouse is over the chatbot icon or chatbot window, hide the custom cursor.
+      if (
+        e.target.closest("#chatbot-icon") ||
+        e.target.closest("#chatbot-window")
+      ) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(() => {
         setPosition({ x: e.clientX, y: e.clientY });
-        setVisible(true);
       });
     };
 
@@ -44,7 +52,7 @@ const CustomCursor = () => {
   useEffect(() => {
     const handleMouseDown = () => {
       setIsClicking(true);
-      setTimeout(() => setIsClicking(false), 80); // Reduced for snappier clicks
+      setTimeout(() => setIsClicking(false), 80);
     };
 
     window.addEventListener("mousedown", handleMouseDown);
@@ -60,11 +68,11 @@ const CustomCursor = () => {
         scale: isClicking ? 0.95 : 1,
         opacity: visible ? 1 : 0,
       }}
-      transition={{ type: "tween", duration: 0.08 }} // Faster response
+      transition={{ type: "tween", duration: 0.08 }}
       style={{
         top: 0,
         left: 0,
-        zIndex: 9999,
+        zIndex: 99999,
         width: `${size}px`,
         height: `${size * 1.5}px`,
       }}
@@ -76,6 +84,7 @@ const CustomCursor = () => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        {/* Cursor Head Only */}
         <polygon
           points="2,2 2,40 12,30 27,35"
           fill="url(#gradient)"
@@ -83,13 +92,11 @@ const CustomCursor = () => {
           strokeWidth="2"
           filter="url(#glow)"
         />
-
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#7000ff" />
             <stop offset="100%" stopColor="#ff00ff" />
           </linearGradient>
-
           <filter id="glow">
             <feGaussianBlur stdDeviation="1.5" result="blurred" />
             <feMerge>

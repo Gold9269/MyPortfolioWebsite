@@ -33,7 +33,7 @@ const Footer = () => {
         <a href="https://github.com/Gold9269" target="_blank" rel="noopener noreferrer">
           <div className="social-icon">
             <img
-              src={isDarkMode ? '/assets/github.svg' : '/assets/github-dark.svg'}
+              src={'/assets/icons8-github.svg'}
               alt="GitHub"
               className="w-1/2 h-1/2"
             />
@@ -42,7 +42,7 @@ const Footer = () => {
         <a href="https://www.linkedin.com/in/nishant-chopra-4u2u2005/" target="_blank" rel="noopener noreferrer">
           <div className="social-icon">
             <img
-              src={isDarkMode ? '/assets/Linkedin.svg' : '/assets/linkedin-dark.svg'}
+              src={'/assets/icons8-linkedin.svg'}
               alt="LinkedIn"
               className="w-1/2 h-1/2"
             />
@@ -51,7 +51,7 @@ const Footer = () => {
         <a href="https://www.instagram.com/nishantchopra04?igsh=dGs2dmc5Z3F1N3ph&utm_source=qr" target="_blank" rel="noopener noreferrer">
           <div className="social-icon">
             <img
-              src={isDarkMode ? '/assets/instagram.svg' : '/assets/instagram-dark.svg'}
+              src={'/assets/icons8-instagram.svg'}
               alt="Instagram"
               className="w-1/2 h-1/2"
             />

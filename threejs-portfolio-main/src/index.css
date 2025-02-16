@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type="text"],
+textarea {
+  cursor: text; /* Ensures the I-beam cursor is shown */
+}
 /* Hide default cursor on all elements */
 * {
   cursor: none !important;
