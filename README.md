@@ -89,5 +89,3 @@ Replace the placeholder values with your actual EmailJS credentials. You can obt
 ```bash
 npm run dev
 ```
-
-## <a name="links">🔗 Links</a>
