@@ -333,7 +333,7 @@ export const workExperiences = [
       "=>A FullStack Web3 Developer.",
       "=>Solved 500+ DSA questions combined on LeetCode, GeeksforGeeks, etc."],
     icon: '/assets/NSUT_logo.png',
-    animation: 'clapping',
+    animation: 'idle',
   },
   {
     id: 2,
@@ -346,7 +346,7 @@ export const workExperiences = [
       "=>Qualified NDA Written Exam."
     ],
     icon: '/assets/MDS.png',
-    animation: 'clapping',
+    animation: 'idle',
   },
   {
     id: 3,
@@ -355,6 +355,6 @@ export const workExperiences = [
     duration: '  - 90.2%',
     title: [""],
     icon: '/assets/StPauls.png',
-    animation: 'clapping',
+    animation: 'idle',
   },
 ];
