@@ -7,6 +7,7 @@ const CustomCursor = () => {
   const [visible, setVisible] = useState(true);
   const [size, setSize] = useState(window.innerWidth < 768 ? 24 : 32);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     let animationFrame;
@@ -18,28 +19,60 @@ const CustomCursor = () => {
     };
 
     const moveCursor = (e) => {
-      if (isMobile || document.body.classList.contains("cursor-disabled")) return; // ✅ Hide cursor if modal is open
+      if (isMobile) return;
 
-      setVisible(true);
+      // Check if modal is open
+      if (document.body.classList.contains("cursor-disabled")) {
+        setModalOpen(true);
+        setVisible(false);
+        return;
+      } else {
+        setModalOpen(false);
+      }
+
+      if (
+        e.target.closest("#chatbot-icon") ||
+        e.target.closest("#chatbot-window")
+      ) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+      
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(() => {
         setPosition({ x: e.clientX, y: e.clientY });
       });
     };
 
+    // Monitor the cursor-disabled class
+    const checkModalStatus = () => {
+      const isModalOpen = document.body.classList.contains("cursor-disabled");
+      setModalOpen(isModalOpen);
+      setVisible(!isModalOpen);
+    };
+
     window.addEventListener("resize", updateSize);
     document.addEventListener("mousemove", moveCursor);
     document.addEventListener("mouseleave", () => setVisible(false));
-    document.addEventListener("mouseenter", () => setVisible(true));
+    document.addEventListener("mouseenter", () => {
+      if (!modalOpen) setVisible(true);
+    });
+    
+    // Check modal status when component mounts and when DOM changes
+    checkModalStatus();
+    const observer = new MutationObserver(checkModalStatus);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     updateSize();
 
     return () => {
       window.removeEventListener("resize", updateSize);
       document.removeEventListener("mousemove", moveCursor);
+      observer.disconnect();
       cancelAnimationFrame(animationFrame);
     };
-  }, [isMobile]);
+  }, [isMobile, modalOpen]);
 
   useEffect(() => {
     const handleMouseDown = () => {
@@ -51,7 +84,8 @@ const CustomCursor = () => {
     return () => window.removeEventListener("mousedown", handleMouseDown);
   }, []);
 
-  if (isMobile || document.body.classList.contains("cursor-disabled")) return null; // ✅ Hide cursor when modal is open
+  // Return null if mobile or modal is open
+  if (isMobile || modalOpen) return null;
 
   return (
     <motion.div
