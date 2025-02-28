@@ -18,16 +18,9 @@ const CustomCursor = () => {
     };
 
     const moveCursor = (e) => {
-      if (isMobile) return; // Disable cursor on mobile
+      if (isMobile || document.body.classList.contains("cursor-disabled")) return; // ✅ Hide cursor if modal is open
 
-      if (
-        e.target.closest("#chatbot-icon") ||
-        e.target.closest("#chatbot-window")
-      ) {
-        setVisible(false);
-      } else {
-        setVisible(true);
-      }
+      setVisible(true);
       cancelAnimationFrame(animationFrame);
       animationFrame = requestAnimationFrame(() => {
         setPosition({ x: e.clientX, y: e.clientY });
@@ -58,7 +51,7 @@ const CustomCursor = () => {
     return () => window.removeEventListener("mousedown", handleMouseDown);
   }, []);
 
-  if (isMobile) return null; // **Disable custom cursor for mobile**
+  if (isMobile || document.body.classList.contains("cursor-disabled")) return null; // ✅ Hide cursor when modal is open
 
   return (
     <motion.div

@@ -4,15 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ✅ Enable custom cursor globally except when modal is open */
 @media (min-width: 768px) {
-  * {
-    cursor: none !important; /* Hide the cursor only on larger screens */
+  body:not(.cursor-disabled) * {
+    cursor: none !important;
   }
 }
 
-input[type="text"],
-textarea {
-  cursor: text; /* Ensure the text cursor is visible in input fields */
+/* Ensure text inputs have a normal cursor */
+input[type="text"], textarea {
+  cursor: text !important;
 }
 
 
@@ -370,4 +371,102 @@ body {
 .tech-logo:hover {
   transform: scale(1.05);
   border-color: var(--button-bg);
+}
+/* Blurred background (without separate modal background) */
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px); /* Blurred main page */
+  z-index: 50;
+}
+
+/* The pop-up style like Google Drive */
+.resume-content {
+  background: transparent; /* No extra background */
+  width: 80%;
+  height: 80%;
+  position: relative;
+}
+
+/* PDF Viewer */
+.resume-pdf {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Close Button */
+.resume-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+/* Apply custom cursor inside modal */
+.resume-modal, .resume-content, .resume-close, .resume-pdf {
+  cursor: none !important; /* Ensures custom cursor */
+}
+
+/* Make sure cursor works inside the PDF viewer */
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* Hide custom cursor when modal is open */
+.default-cursor {
+  cursor: default !important;
+}
+
+/* Restore default cursor inside the PDF viewer */
+.default-cursor object {
+  cursor: auto !important;
+}
+
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px); /* Blurred main page */
+  z-index: 50;
+}
+
+/* Resume Modal Content */
+.resume-content {
+  background: transparent;
+  width: 80%;
+  height: 80%;
+  position: relative;
+}
+
+/* PDF Viewer */
+.resume-pdf {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Close Button */
+.resume-close {
+  position: absolute;
+  top: 50px;
+  right: 35px;
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Disable custom cursor when modal is open */
+.cursor-disabled * {
+  cursor: default !important;
 }
