@@ -4,7 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 
 import Developer from '../components/Developer.jsx';
 import CanvasLoader from '../components/Loading.jsx';
-import { workExperiences } from '../constants/index.js'
+import { workExperiences } from '../constants/index.js';
 
 const About = () => {
   const [animationName, setAnimationName] = useState('idle');
@@ -22,7 +22,7 @@ const About = () => {
   return (
     <section className="c-space my-20" id="about">
       <div className="w-full text-white-600">
-        <p className="head-text">About me</p>
+        <h2 className="head-text">About me</h2>
 
         <div className="work-container">
           <div className="work-canvas">
@@ -49,39 +49,41 @@ const About = () => {
                   className="work-content_container group">
                   <div className="flex flex-col h-full justify-start items-center py-2">
                     <div className="rounded-3xl w-16 h-16 p-2 bg-white">
-                      <img className="w-full h-full" src={item.icon} alt="" />
+                      <img className="w-full h-full" src={item.icon} alt="icon" />
                     </div>
 
                     <div className="work-content_bar" />
                   </div>
 
-                  <div className="sm:p-5 px-2.5 py-5 ">
+                  <div className="sm:p-5 px-2.5 py-5">
                     <p className="font-bold text-white-800">{item.name}</p>
                     <p className="text-sm mb-5">
-                      {item.pos}<span>{item.duration}</span>
+                      {item.pos} <span>{item.duration}</span>
                     </p>
-                    <p className="group-hover:text-white transition-all ease-in-out duration-500">{
-                      item?.title?.map((content)=>(
-                        <div>{content}</div>
-                      ))
-                    }</p>
+                    <div className="group-hover:text-white transition-all ease-in-out duration-500">
+                      {item?.title?.map((content, idx) => (
+                        <p key={idx}>{content}</p>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="space-y-2  gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg max-w-2xs mb-6" id='aboutContact'
-                onClick={() => setAnimationName('salute')}
-                  onPointerOver={() => setAnimationName('salute')}
-                  onPointerOut={() => setAnimationName('idle')}
-              >
-                <p className="grid-subtext text-center">Contact me</p>
-                  <div className="copy-container" onClick={handleCopy}>
-                    <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
-                    <p className="email-text text-center">
-                      nishantchopra2020@gmail.com
-                    </p>
-                  </div>
+            <div 
+              className="space-y-2 gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg max-w-2xs mb-6" 
+              id='aboutContact'
+              onClick={() => setAnimationName('salute')}
+              onPointerOver={() => setAnimationName('salute')}
+              onPointerOut={() => setAnimationName('idle')}
+            >
+              <p className="grid-subtext text-center">Contact me</p>
+              <div className="copy-container" onClick={handleCopy}>
+                <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy icon" />
+                <p className="email-text text-center">
+                  nishantchopra2020@gmail.com
+                </p>
               </div>
+            </div>
           </div>
         </div>
       </div>
