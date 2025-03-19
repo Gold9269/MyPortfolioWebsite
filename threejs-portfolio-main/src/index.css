@@ -27,8 +27,9 @@ input[type="text"], textarea {
   --nav-hover: #2d3748;  /* Darker hover state */
   --border-color: #e2e8f0;  /* Softer borders */
   --card-bg: #ffffff;  /* Pure white for cards to create contrast */
-  --button-bg: #2d3748;  /* Matching button background */
-  --button-text: #ffffff;  /* White text for buttons */
+  --button-bg: black;  /* Matching button background */
+  --button-text: white;  /* White text for buttons */
+  --button-border: rgba(255, 255, 255, 0.5);
 }
 
 [data-theme='dark'] {
@@ -41,8 +42,9 @@ input[type="text"], textarea {
   --nav-hover: #ffffff;
   --border-color: #2d2d2d;    /* Slightly lighter than pure black */
   --card-bg: #0d0d0d;         /* Very dark gray (not pure black) */
-  --button-bg: #0d0d0d;       /* Very dark gray */
-  --button-text: #ffffff;
+  --button-bg: #050505; /* Black button background */
+  --button-text: #ffffff; /* White text */
+  --button-border: rgba(255, 255, 255, 0.5);
 }
 
 * {
@@ -123,9 +125,10 @@ body {
 
   /* Button component */
   .btn {
-    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md transition-all active:scale-95 mx-auto;
+    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md transition-all active:scale-95 mx-auto border;
     background-color: var(--button-bg);
     color: var(--button-text);
+    border: 1.5px solid var(--button-border); /* Added border for separation */
   }
 
   .btn-ping {

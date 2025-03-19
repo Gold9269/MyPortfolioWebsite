@@ -56,7 +56,7 @@ const About = () => {
                   </div>
 
                   <div className="sm:p-5 px-2.5 py-5">
-                    <p className="font-bold text-white-800">{item.name}</p>
+                    <p className="font-bold text-white-600">{item.name}</p>
                     <p className="text-sm mb-5">
                       {item.pos} <span>{item.duration}</span>
                     </p>
@@ -70,16 +70,16 @@ const About = () => {
               ))}
             </div>
             <div 
-              className="space-y-2 gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg max-w-2xs mb-6" 
+              className="space-y-2 gap-5 transition-all ease-in-out duration-500 cursor-pointer hover:bg-gray-700 rounded-lg max-w-2xs mb-6" 
               id='aboutContact'
               onClick={() => setAnimationName('salute')}
               onPointerOver={() => setAnimationName('salute')}
               onPointerOut={() => setAnimationName('idle')}
             >
-              <p className="grid-subtext text-center">Contact me</p>
+              <p className="text-center font-bold text-white-600">Contact me</p>
               <div className="copy-container" onClick={handleCopy}>
                 <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy icon" />
-                <p className="email-text text-center">
+                <p className="text-center">
                   nishantchopra2020@gmail.com
                 </p>
               </div>

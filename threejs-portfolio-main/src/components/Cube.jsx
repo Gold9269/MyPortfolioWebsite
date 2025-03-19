@@ -1,66 +1,54 @@
 import gsap from 'gsap';
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Float, useGLTF, useTexture } from '@react-three/drei';
 
 const Cube = ({ ...props }) => {
   const { nodes } = useGLTF('models/cube.glb');
   const texture = useTexture('textures/cube.png');
 
-  const cubeRef = useRef();
-  const timelineRef = useRef();
+  const cubeRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const timelineRef = useRef(null);
 
-  // Create a continuous GSAP timeline that rotates the cube clockwise then anticlockwise.
   useEffect(() => {
-    if (!cubeRef.current) return;
+    if (!cubeRef.current) return; // Ensure cubeRef is set
+
     timelineRef.current = gsap.timeline({ repeat: -1, repeatDelay: 0.5 })
       .to(cubeRef.current.rotation, {
         y: `+=${Math.PI * 2}`,
-        duration: 2,
-        ease: "power2.inOut",
-      })
-      .to(cubeRef.current.rotation, {
-        y: `-=${Math.PI * 2}`,
-        duration: 2,
-        ease: "power2.inOut",
+        x: `-=${Math.PI * 2}`,
+        duration: 2.5,
+        ease: 'power1.inOut',
       });
+
+    return () => {
+      if (timelineRef.current) timelineRef.current.kill(); // Cleanup on unmount
+    };
   }, []);
 
-  // On pointer enter, smoothly slow down the rotation.
-  const handlePointerEnter = () => {
-    if (timelineRef.current) {
-      gsap.to(timelineRef.current, { timeScale: 0.2, duration: 0.5, ease: "power2.inOut" });
-    }
-  };
+  const handleHover = () => {
+    if (!hovered) {
+      setHovered(true);
+      timelineRef.current?.pause();
 
-  // On pointer leave, smoothly restore the rotation speed.
-  const handlePointerLeave = () => {
-    if (timelineRef.current) {
-      gsap.to(timelineRef.current, { timeScale: 1, duration: 0.5, ease: "power2.inOut" });
+      gsap.delayedCall(1, () => {
+        setHovered(false);
+        timelineRef.current?.resume();
+      });
     }
   };
 
   return (
     <Float floatIntensity={2}>
-      <group
-        position={[9, -4, 0]}
-        rotation={[2.6, 0.8, -1.8]}
-        scale={0.74}
-        dispose={null}
-        {...props}
-      >
+      <group position={[9, -4, 0]} rotation={[2.6, 0.8, -1.8]} scale={0.74} {...props}>
         <mesh
           ref={cubeRef}
-          castShadow
-          receiveShadow
           geometry={nodes.Cube.geometry}
-          onPointerEnter={handlePointerEnter}
-          onPointerLeave={handlePointerLeave}
+          material={nodes.Cube.material}
+          onPointerEnter={handleHover}
+          onPointerLeave={() => setHovered(false)}
         >
-          <meshMatcapMaterial
-            matcap={texture}
-            toneMapped={false}
-            color="#dddddd"
-          />
+          <meshStandardMaterial map={texture} roughness={0.2} metalness={0} />
         </mesh>
       </group>
     </Float>
